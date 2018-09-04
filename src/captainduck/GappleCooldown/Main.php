@@ -17,11 +17,11 @@ class Main extends PluginBase implements \pocketmine\event\Listener{
     private $p = [];
 
     public function onEnable(){
-        $this->getLogger()->info("GappleCooldown by CaptainDuck enabled!");
+        $this->getLogger()->info("GappleCooldown Enabled");
         $this->getScheduler()->scheduleRepeatingTask(new CooldownTask($this, 25), 25);
         $this->config = new Config($this->getDataFolder(). "config.yml", Config::YAML, array(
-            "cooldown-seconds" => 10,
-            "enchanted-cooldown-seconds" => 20
+            "cooldown-seconds" => 30,
+            "enchanted-cooldown-seconds" => 30
         ));
         $this->cooldown = new Config($this->getDataFolder(). "cooldowns.yml", Config::YAML);
         if(!is_dir($this->getDataFolder())) mkdir($this->getDataFolder());
@@ -37,7 +37,7 @@ class Main extends PluginBase implements \pocketmine\event\Listener{
         $player = $e->getPlayer();
         if($e->getItem()->getId() == 322){
           if(isset($this->p[strtolower($player->getName())])){
-            $player->sendMessage(C::ITALIC. C::RED. "You're able to consume another Golden Apple in ". $this->cooldown->get(strtolower($player->getName())). " seconds.");
+            $player->sendMessage(C::ITALIC. C::RED. "This Item Is On CoolDown ". $this->cooldown->get(strtolower($player->getName())). " seconds.");
             $e->setCancelled();
           }else{
             $this->addCooldown($player);
@@ -45,7 +45,7 @@ class Main extends PluginBase implements \pocketmine\event\Listener{
         }
         if($e->getItem()->getId() == 466){
           if(isset($this->p[strtolower($player->getName())])){
-            $player->sendMessage(C::ITALIC. C::RED. "You're able to consume another Golden Apple in ". $this->cooldown->get(strtolower($player->getName())). " seconds.");
+            $player->sendMessage(C::ITALIC. C::RED. "This Item Is On CoolDown ". $this->cooldown->get(strtolower($player->getName())). " seconds.");
             $e->setCancelled();
           }else{
             $this->addEnchantedCooldown($player);
