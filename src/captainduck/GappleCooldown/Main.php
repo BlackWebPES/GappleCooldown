@@ -17,7 +17,7 @@ class Main extends PluginBase implements \pocketmine\event\Listener{
     private $p = [];
 
     public function onEnable(){
-        $this->getLogger()->info("GappleCooldown Enabled");
+        $this->getLogger()->info("gapplecooldown enabled");
         $this->getScheduler()->scheduleRepeatingTask(new CooldownTask($this, 25), 25);
         $this->config = new Config($this->getDataFolder(). "config.yml", Config::YAML, array(
             "cooldown-seconds" => 30,
